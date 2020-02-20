@@ -1,0 +1,22 @@
+{
+  "name": "memotest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/donramone/memotest.git"
+  },
+  "author": "Luigi\u001b[3~",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/donramone/memotest/issues"
+  },
+  "homepage": "https://github.com/donramone/memotest#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1"
+  }
+}
