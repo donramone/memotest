@@ -1,0 +1,16 @@
+html {
+    min-height: 100vh;
+   
+}
+
+body{
+margin: 0;   
+
+}
+.alto {
+    height: 120px;
+}
+.contenedor{
+    height: 780px;
+    background-color: honeydew;
+}
