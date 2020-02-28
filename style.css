@@ -14,3 +14,23 @@ margin: 0;
     height: 780px;
     background-color: honeydew;
 }
+
+.carta{
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border: 1px solid #2fc5be;
+    margin: 3px;
+    /* background-color:darkcyan; */
+
+    /* margin-top: 20px; */
+
+}
+
+#tablero{
+    background-color: bisque;
+}
+
+#controles{
+    background-color: rgb(187, 182, 175);
+}
