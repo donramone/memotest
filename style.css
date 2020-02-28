@@ -1,6 +1,6 @@
 html {
-    min-height: 100vh;
-   
+    /* min-height: 100vh; */
+    height: 100%;
 }
 
 body{
@@ -8,13 +8,23 @@ margin: 0;
 
 }
 .alto {
-    height: 120px;
-}
-.contenedor{
-    height: 780px;
-    background-color: honeydew;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.contenedor{
+/* height: 780px; */
+
+
+
+background-color: honeydew;
+}
+.titulo{
+    font-family: 'Bangers';
+    font-size: 44px;
+}
 .carta{
     border-radius: 20px 20px 20px 20px;
     -moz-border-radius: 20px 20px 20px 20px;
@@ -28,7 +38,7 @@ margin: 0;
 }
 
 #tablero{
-    background-color: bisque;
+    background-color: red;
 }
 
 #controles{
