@@ -3,6 +3,10 @@ let totalIntentos = 0;
 const $front = document.querySelectorAll(".carta img")
 const $timer = document.querySelector('.temporizador');
 
+
+let primeraSeleccion=null;
+let segundaSeleccion=null;
+
 let min = 0,
     sec = 0;
     hora = 0;
@@ -43,8 +47,8 @@ function setPlayPause()
     {
         document.getElementById("btn-empezar").value = "Play";
         document.getElementById("btn-empezar").innerText = "Play";
-        alert("PLAY!");
-        clearInterval(id);
+      //  alert("PLAY!");
+       // clearInterval(id);
       
     }
     else
@@ -52,7 +56,7 @@ function setPlayPause()
         document.getElementById("btn-empezar").value = "Reiniciar";
         document.getElementById("btn-empezar").innerText = "REINICIAR";
      
-        alert("REINICIAR!");
+     //   alert("REINICIAR!");
       
     }
 }
@@ -73,9 +77,11 @@ function cronometro(){
 }
 $tablero.onclick = function(e) {
     let $elemento = e.target;
-    const idCarta = e.target.getAttribute('id');
+    let idCarta = $elemento.getAttribute('id');
 
-   
+
+//   console.log(array_imagenes);
+
     if ($elemento.classList.contains('img-fluid')) {
 
       manejarClickCuadro($elemento,idCarta);
@@ -89,6 +95,40 @@ $tablero.onclick = function(e) {
 
 function manejarClickCuadro($carta,idCarta) {
 
+
+  if (primeraSeleccion === null) {
+ 
+    primeraSeleccion= array_imagenes[idCarta];
+   // primeraSeleccion= $carta;
+    console.log(primeraSeleccion);
+   // mostrarCarta($carta, idCarta);
+   $carta.src = array_imagenes[idCarta];
+  }
+  else if(segundaSeleccion === null){
+  //  segundaSeleccion=  $carta;
+    segundaSeleccion= array_imagenes[idCarta];
+    console.log(segundaSeleccion);
+   // mostrarCarta($carta, idCarta);
+   $carta.src = array_imagenes[idCarta];
+  }
+
+  if(segundaSeleccion !== null){
+    console.log("compararrr");
+    console.log("primera carta :" + primeraSeleccion + " Segunda carta: " + segundaSeleccion);
+    if(primeraSeleccion == segundaSeleccion){
+      console.log("Coreeecto");
+    }else{
+      console.log("Incoooreeecto");
+      
+
+    }
+    primeraSeleccion = null;
+    segundaSeleccion = null;
+  }
+ 
+ /*
+ *****
+ 
   if($carta.getAttribute('src') === 'img/dc.png'){
 
     mostrarCarta($carta, idCarta);
@@ -97,6 +137,30 @@ function manejarClickCuadro($carta,idCarta) {
     
     $carta.src= 'img/dc.png';
   }
+*/
+
+
+  /*mostrarCuadro($cuadroActual);
+
+  if ($primerCuadro === null) {
+    $primerCuadro = $cuadroActual;
+  } else {
+
+    if ($primerCuadro === $cuadroActual) {
+      return;
+    }
+
+    turnos++;
+
+    if (cuadrosSonIguales($primerCuadro, $cuadroActual)) {
+      eliminarCuadro($primerCuadro);
+      eliminarCuadro($cuadroActual);
+    } else {
+      ocultarCuadro($primerCuadro);
+      ocultarCuadro($cuadroActual);
+    }
+    $primerCuadro = null;
+  }*/
 
 }
 
