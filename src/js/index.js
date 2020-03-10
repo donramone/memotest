@@ -1,46 +1,27 @@
 
-let totalIntentos = 0;
-let totalCorrectos = 0;
-let primeraCarta= null;
-let segundaCarta= null;
-let primeraSeleccion=null;
-let segundaSeleccion=null;
+let totalIntentos = 0, totalCorrectos = 0;
+let min = 0, sec = 0, cronometro = 0;
+let primeraCarta= null, segundaCarta= null;
+let primeraSeleccion=null, segundaSeleccion=null;
 
+let array_imagenes=["img/1.jpg","img/1.jpg","img/2.jpg","img/2.jpg","img/3.jpg","img/3.jpg","img/4.jpg","img/4.jpg",
+        "img/5.jpg","img/5.jpg","img/6.jpg","img/6.jpg","img/7.jpg","img/7.jpg","img/8.jpg","img/8.jpg"];
 
-let min = 0,
-    sec = 0;
-    hora = 0;
-var cronometro = 0;
-
-let array_imagenes=
-  ["img/1.jpg",
-	"img/1.jpg",
-	"img/2.jpg",
-  "img/2.jpg",
-  "img/3.jpg",
-	"img/3.jpg",
-  "img/4.jpg",
-  "img/4.jpg",
-  "img/5.jpg",
-  "img/5.jpg",
-	"img/6.jpg",
-  "img/6.jpg",
-  "img/7.jpg",
-  "img/7.jpg",
-  "img/8.jpg",
-  "img/8.jpg"
-	]
-
-
-
-
-const $front = document.querySelectorAll(".carta img")
+const $carta = document.querySelectorAll(".carta img")
 const $timer = document.querySelector('.temporizador');
 const $btnEmpezar = document.querySelector("#btn-empezar");
-const $tablero = document.querySelector('#tablero');
+const $tableroCartas = document.querySelector('#tablero');
 const $movimientos = document.querySelector(".movimientos");
 
 
+$btnEmpezar.onclick = function(){
+  if(document.getElementById("btn-empezar").value === "Parar"){
+    parar();    
+  }
+  else{
+    jugar();
+  }
+}
 
 function parar(){
   document.getElementById("btn-empezar").value = "Jugar";
@@ -58,21 +39,14 @@ function jugar(){
   mezclarImagenes();
 }
 
-$btnEmpezar.onclick = function(){
-  if(document.getElementById("btn-empezar").value === "Parar"){
-    parar();    
-  }
-  else{
-    jugar();
-  }
-}
 
-$tablero.onclick = function(e) {
-    let $elementoSeleccionado = e.target;
-    if ($elementoSeleccionado.classList.contains('img-fluid')) {
-      manejarCartaSeleccionada($elementoSeleccionado);
+$tableroCartas.onclick = function(e) {
+    let $elemento = e.target;
+    if ($elemento.classList.contains('img-fluid')) {
+      manejarCartaSeleccionada($elemento);
     }
 }
+
 
 function manejarCartaSeleccionada($cartaSeleccionada) {
 
@@ -100,10 +74,9 @@ function manejarCartaSeleccionada($cartaSeleccionada) {
     }
     primeraSeleccion = null;
     segundaSeleccion = null;
-    
-
   }
 }
+
 function compararCarta(carta1, carta2){
 
     if(carta1 === carta2){
@@ -118,69 +91,50 @@ function ocultarCarta(carta1,carta2){
   setTimeout(function () {
   carta1.src= 'img/dc.png';
   carta2.src= 'img/dc.png';
-  }, 800);
+  }, 750);
 
 }
 
 function mostrarCarta(carta,imagen){
    carta.src = imagen;
-  
 }
 
 function ocultarTodasLasCartas(){
   for (let i = 0; i < array_imagenes.length ; i++) {
-      $front[i].src = 'img/dc.png';
-  
+      $carta[i].src = 'img/dc.png';
   }
 }
 
 function mezclarImagenes() {
   let i, j, temp;
-  for (i = array_imagenes.length - 1; i > 0; i--) {
   
+  for (i = array_imagenes.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
     temp = array_imagenes[i];
     array_imagenes[i] = array_imagenes[j];
     array_imagenes[j] = temp;
+  //  $carta[i].src = 'img/dc.png';
   }
   return array_imagenes;    
-
 }
 
 function iniciarCronometro() {
+  let secFormat, minFormat;
   sec++;
-  if (sec <= 60) {
-      if (sec === 60) {
-          sec = 0;
-          min++;
-          if (min === 60) {
-              min = 0;
-              hora++;
-          }
-      }
-  }
-  else {
-      sec = 0;
-  }
-  $timer.textContent = mostrarDosDigitos(min) + ":" + mostrarDosDigitos(sec);
+
+  if (sec === 60){sec = 0;min++;}
+  
+  if (sec<10){secFormat="0"+sec;}else{secFormat=sec;}
+  if (min<10){minFormat="0"+min;}else{minFormat=min;}
+  
+  $timer.textContent = minFormat + ":" + secFormat;
 }
 
 function pararCronometro(){
-sec=0;
-min=0;
-hora=0;
-clearInterval(cronometro);
-$timer.textContent= "00:00";
-
-}
-
-function mostrarDosDigitos(numero){
-  if(numero<10){
-      numero = "0" + numero;
-      return numero;
-  }else{
-      return numero;
-  };
+  sec=0;
+  min=0;
+  clearInterval(cronometro);
+  $timer.textContent= "00:00";
 }
 
 function actualizarMovimientos(intentos){

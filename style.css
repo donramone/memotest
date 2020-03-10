@@ -7,18 +7,13 @@ body{
 margin: 0;   
 
 }
-.alto {
+#cabecera {
     height: 20vh;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .contenedor{
-/* height: 780px; */
-
-
-
 background-color: honeydew;
 }
 .titulo{
@@ -31,9 +26,9 @@ background-color: honeydew;
     -webkit-border-radius: 20px 20px 20px 20px;
     border: 1px solid #2fc5be;
     margin: 3px;
-    width:190px;
+  /*   width:190px;
     height:130px;
-
+*/
 }
 
 #tablero{
