@@ -1,20 +1,17 @@
-let $primeraCarta = null;
+
 let totalIntentos = 0;
-const $front = document.querySelectorAll(".carta img")
-const $timer = document.querySelector('.temporizador');
-
-
+let totalCorrectos = 0;
+let primeraCarta= null;
+let segundaCarta= null;
 let primeraSeleccion=null;
 let segundaSeleccion=null;
+
 
 let min = 0,
     sec = 0;
     hora = 0;
+var cronometro = 0;
 
-let timer;
-var interval = -1;
-
-const TOTAL_CARTAS = 15;
 let array_imagenes=
   ["img/1.jpg",
 	"img/1.jpg",
@@ -36,175 +33,121 @@ let array_imagenes=
 
 
 
+
+const $front = document.querySelectorAll(".carta img")
+const $timer = document.querySelector('.temporizador');
 const $btnEmpezar = document.querySelector("#btn-empezar");
 const $tablero = document.querySelector('#tablero');
+const $movimientos = document.querySelector(".movimientos");
 
-function setPlayPause()
-{
-  
-  
-    if(document.getElementById("btn-empezar").value === "Reiniciar")
-    {
-        document.getElementById("btn-empezar").value = "Play";
-        document.getElementById("btn-empezar").innerText = "Play";
-      //  alert("PLAY!");
-       // clearInterval(id);
-      
-    }
-    else
-    {
-        document.getElementById("btn-empezar").value = "Reiniciar";
-        document.getElementById("btn-empezar").innerText = "REINICIAR";
-     
-     //   alert("REINICIAR!");
-      
-    }
+
+
+function parar(){
+  document.getElementById("btn-empezar").value = "Jugar";
+  document.getElementById("btn-empezar").innerText = "Jugar";
+  pararCronometro();
+  ocultarTodasLasCartas();
+  totalIntentos=0;
+  actualizarMovimientos(totalIntentos);
+}
+
+function jugar(){
+  document.getElementById("btn-empezar").value = "Parar";
+  document.getElementById("btn-empezar").innerText = "Parar";
+  cronometro = setInterval(iniciarCronometro,1000);
+  mezclarImagenes();
 }
 
 $btnEmpezar.onclick = function(){
-  setPlayPause();
-  iniciarTemporizador();
-  id = setInterval(iniciarTemporizador,1000);
-  
-  cargarImagenesCartas(mezclarImagenes());
-  //iniciar timer.
-  //desbloquear cartas
-  // cargar imagenes al tablero
-
+  if(document.getElementById("btn-empezar").value === "Parar"){
+    parar();    
+  }
+  else{
+    jugar();
+  }
 }
-function cronometro(){
 
-}
 $tablero.onclick = function(e) {
-    let $elemento = e.target;
-    let idCarta = $elemento.getAttribute('id');
-
-
-//   console.log(array_imagenes);
-
-    if ($elemento.classList.contains('img-fluid')) {
-
-      manejarClickCuadro($elemento,idCarta);
-        // mostrarCarta($elemento, idCarta);
-    }else{
-    //  console.log("NO TIENE una carta js!");
+    let $elementoSeleccionado = e.target;
+    if ($elementoSeleccionado.classList.contains('img-fluid')) {
+      manejarCartaSeleccionada($elementoSeleccionado);
     }
-
- //   console.log(mezclarImagenes());
 }
 
-function manejarClickCuadro($carta,idCarta) {
+function manejarCartaSeleccionada($cartaSeleccionada) {
 
-
-  if (primeraSeleccion === null) {
- 
-    primeraSeleccion= array_imagenes[idCarta];
-   // primeraSeleccion= $carta;
-    console.log(primeraSeleccion);
-   // mostrarCarta($carta, idCarta);
-   $carta.src = array_imagenes[idCarta];
+  if($cartaSeleccionada.getAttribute('src') === 'img/dc.png'){
+    if(primeraSeleccion === null) {
+      primeraCarta = $cartaSeleccionada;
+      primeraSeleccion= array_imagenes[$cartaSeleccionada.getAttribute('id')];
+      mostrarCarta(primeraCarta,primeraSeleccion);
+   
+    }else if(segundaSeleccion === null){
+      segundaCarta = $cartaSeleccionada;
+      segundaSeleccion= array_imagenes[$cartaSeleccionada.getAttribute('id')];
+      mostrarCarta(segundaCarta,segundaSeleccion);
+      totalIntentos++;
+      actualizarMovimientos(totalIntentos);
+    }
   }
-  else if(segundaSeleccion === null){
-  //  segundaSeleccion=  $carta;
-    segundaSeleccion= array_imagenes[idCarta];
-    console.log(segundaSeleccion);
-   // mostrarCarta($carta, idCarta);
-   $carta.src = array_imagenes[idCarta];
-  }
-
+  
   if(segundaSeleccion !== null){
-    console.log("compararrr");
-    console.log("primera carta :" + primeraSeleccion + " Segunda carta: " + segundaSeleccion);
-    if(primeraSeleccion == segundaSeleccion){
-      console.log("Coreeecto");
-    }else{
-      console.log("Incoooreeecto");
-      
-
+    if(compararCarta(primeraSeleccion,segundaSeleccion)){
+      ocultarCarta(primeraCarta,segundaCarta);
+    }else if(totalCorrectos===8){
+      alert("WINNER!!! con tantos intentos: " + totalIntentos);
+      parar();
     }
     primeraSeleccion = null;
     segundaSeleccion = null;
-  }
- 
- /*
- *****
- 
-  if($carta.getAttribute('src') === 'img/dc.png'){
-
-    mostrarCarta($carta, idCarta);
- 
-  }else{
     
-    $carta.src= 'img/dc.png';
+
   }
-*/
+}
+function compararCarta(carta1, carta2){
 
-
-  /*mostrarCuadro($cuadroActual);
-
-  if ($primerCuadro === null) {
-    $primerCuadro = $cuadroActual;
-  } else {
-
-    if ($primerCuadro === $cuadroActual) {
-      return;
+    if(carta1 === carta2){
+      totalCorrectos++;
+      return false;
+    }else{
+      return true;
     }
+}
 
-    turnos++;
-
-    if (cuadrosSonIguales($primerCuadro, $cuadroActual)) {
-      eliminarCuadro($primerCuadro);
-      eliminarCuadro($cuadroActual);
-    } else {
-      ocultarCuadro($primerCuadro);
-      ocultarCuadro($cuadroActual);
-    }
-    $primerCuadro = null;
-  }*/
+function ocultarCarta(carta1,carta2){
+  setTimeout(function () {
+  carta1.src= 'img/dc.png';
+  carta2.src= 'img/dc.png';
+  }, 800);
 
 }
 
-function mostrarCarta($cartaActual, id){
-//console.log($cartaActual);
-
-  $cartaActual.src = array_imagenes[id];
-  if($primeraCarta ===null) {
-    $primeraCarta = $cartaActual;
-
-  }else ($primeraCarta ===$cartaActual)
-  {
-    return;
-  }
-  //turnos++
-
-
-
-  //$primeraCarta =null
-}
+function mostrarCarta(carta,imagen){
+   carta.src = imagen;
   
-function cargarImagenesCartas(array_desordenado){
-  for (let i = 0; i < array_desordenado.length ; i++) {
-   // $front[i].src =array_imagenes[i];
+}
+
+function ocultarTodasLasCartas(){
+  for (let i = 0; i < array_imagenes.length ; i++) {
+      $front[i].src = 'img/dc.png';
   
   }
 }
 
 function mezclarImagenes() {
-
   let i, j, temp;
   for (i = array_imagenes.length - 1; i > 0; i--) {
+  
     j = Math.floor(Math.random() * (i + 1));
     temp = array_imagenes[i];
     array_imagenes[i] = array_imagenes[j];
     array_imagenes[j] = temp;
-   
   }
-
   return array_imagenes;    
 
 }
 
-function iniciarTemporizador() {
+function iniciarCronometro() {
   sec++;
   if (sec <= 60) {
       if (sec === 60) {
@@ -222,6 +165,15 @@ function iniciarTemporizador() {
   $timer.textContent = mostrarDosDigitos(min) + ":" + mostrarDosDigitos(sec);
 }
 
+function pararCronometro(){
+sec=0;
+min=0;
+hora=0;
+clearInterval(cronometro);
+$timer.textContent= "00:00";
+
+}
+
 function mostrarDosDigitos(numero){
   if(numero<10){
       numero = "0" + numero;
@@ -229,4 +181,8 @@ function mostrarDosDigitos(numero){
   }else{
       return numero;
   };
+}
+
+function actualizarMovimientos(intentos){
+  $movimientos.innerText=intentos;
 }
