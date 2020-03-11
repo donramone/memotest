@@ -8,10 +8,10 @@ let array_imagenes=["img/1.jpg","img/1.jpg","img/2.jpg","img/2.jpg","img/3.jpg",
         "img/5.jpg","img/5.jpg","img/6.jpg","img/6.jpg","img/7.jpg","img/7.jpg","img/8.jpg","img/8.jpg"];
 
 const $carta = document.querySelectorAll(".carta img")
-const $timer = document.querySelector('.temporizador');
+const $cronometro = document.querySelector('#cronometro');
 const $btnEmpezar = document.querySelector("#btn-empezar");
 const $tableroCartas = document.querySelector('#tablero');
-const $movimientos = document.querySelector(".movimientos");
+const $movimientos = document.querySelector("#movimientos");
 
 
 $btnEmpezar.onclick = function(){
@@ -108,7 +108,8 @@ function ocultarTodasLasCartas(){
 function mezclarImagenes() {
   let i, j, temp;
   
-  for (i = array_imagenes.length - 1; i > 0; i--) {
+   for (i = array_imagenes.length - 1; i > 0; i--) {
+
     j = Math.floor(Math.random() * (i + 1));
     temp = array_imagenes[i];
     array_imagenes[i] = array_imagenes[j];
@@ -127,14 +128,14 @@ function iniciarCronometro() {
   if (sec<10){secFormat="0"+sec;}else{secFormat=sec;}
   if (min<10){minFormat="0"+min;}else{minFormat=min;}
   
-  $timer.textContent = minFormat + ":" + secFormat;
+  $cronometro.textContent = minFormat + ":" + secFormat;
 }
 
 function pararCronometro(){
   sec=0;
   min=0;
   clearInterval(cronometro);
-  $timer.textContent= "00:00";
+  $cronometro.textContent= "00:00";
 }
 
 function actualizarMovimientos(intentos){
