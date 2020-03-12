@@ -1,26 +1,33 @@
 html {
     /* min-height: 100vh; */
-    height: 100%;
+    height:100%;
+    width:100%;
 }
 
 body{
-background-color: #F2DFBB  !important;
+background-color: #F2DFBB !important;
 margin: 0;   
-/* background-image: url("img/fondo.jpg"); */
-
+height:100%;
+width:100%;
 }
 #cabecera {
-    height: 25%;
+    height: 15vh;
     justify-content: center;
     align-items: center;
-    background-color: #F25764;
+    background-color: rgb(231, 62, 76); 
+    border-top: 2px solid whitesmoke;
+    border-bottom: 4px solid whitesmoke;
 }
 
 .titulo{
     font-family: 'Bangers';
-    font-size: 50px;
-   
-    
+    font-size: 6vw;
+  
+}
+
+#tablero{
+     height: 70vh;
+     background-color: #F25764;
 }
 .carta{
  
@@ -30,25 +37,39 @@ margin: 0;
     border: 1px solid rgb(192, 174, 174) ;
   
     color: #11768C;
+    height: 35vh;
     /* width: 35px;
-    height: 50px; */
+     */
+     overflow: hidden;
 }
 .estadisticas{
     color:whitesmoke;
-    font-size: 40px;
+    font-size: 25px;
     font-family:Verdana, sans-serif;
 }
-#tablero{
-    background-color:#8C5454; 
-  
+
+#mensaje-ganador{
+    border:1px solid whitesmoke;
+    margin-top: 15px;
+    padding: 10px;
+    background-color:#F25764;
+    text-align: center;
+
+}
+#texto-ganador{
+    font-size: 3vw;
+    font-family:sans-serif;
+    color: whitesmoke;
+}
+#controles{
+     background-color: #1c75bc;
 }
 
-#controles{
-    
-    border-radius: 20px 20px 20px 20px;
-    -moz-border-radius: 20px 20px 20px 20px;
-    -webkit-border-radius: 20px 20px 20px 20px;
-     /* background-color:#D9A13B; */
-     /* color: #D9D9D9; */
-     background-color: #616F8C;
+#btn-jugar{
+    margin-top: 20px !important;
+
+}
+
+.oculto{
+    display: none;
 }

@@ -9,13 +9,14 @@ let array_imagenes=["img/1.jpg","img/1.jpg","img/2.jpg","img/2.jpg","img/3.jpg",
 
 const $carta = document.querySelectorAll(".carta img")
 const $cronometro = document.querySelector('#cronometro');
-const $btnEmpezar = document.querySelector("#btn-empezar");
+const $btnJugar = document.querySelector("#btn-jugar");
 const $tableroCartas = document.querySelector('#tablero');
 const $movimientos = document.querySelector("#movimientos");
+const $msgGanador = document.querySelector("#mensaje-ganador");
 
 
-$btnEmpezar.onclick = function(){
-  if(document.getElementById("btn-empezar").value === "Parar"){
+$btnJugar.onclick = function(){
+  if(document.getElementById("btn-jugar").value === "Parar"){
     parar();    
   }
   else{
@@ -24,8 +25,8 @@ $btnEmpezar.onclick = function(){
 }
 
 function parar(){
-  document.getElementById("btn-empezar").value = "Jugar";
-  document.getElementById("btn-empezar").innerText = "Jugar";
+  document.getElementById("btn-jugar").value = "Jugar";
+  document.getElementById("btn-jugar").innerText = "Jugar";
   pararCronometro();
   ocultarTodasLasCartas();
   totalIntentos=0;
@@ -33,8 +34,9 @@ function parar(){
 }
 
 function jugar(){
-  document.getElementById("btn-empezar").value = "Parar";
-  document.getElementById("btn-empezar").innerText = "Parar";
+  document.getElementById("btn-jugar").value = "Parar";
+  document.getElementById("btn-jugar").innerText = "Parar";
+  mostrarMsjGanador("oculto");
   cronometro = setInterval(iniciarCronometro,1000);
   mezclarImagenes();
 }
@@ -69,8 +71,8 @@ function manejarCartaSeleccionada($cartaSeleccionada) {
     if(compararCarta(primeraSeleccion,segundaSeleccion)){
       ocultarCarta(primeraCarta,segundaCarta);
     }else if(totalCorrectos===8){
-      alert("WINNER!!! con tantos intentos: " + totalIntentos);
-      parar();
+     mostrarMsjGanador("visible"); 
+     parar();
     }
     primeraSeleccion = null;
     segundaSeleccion = null;
@@ -114,7 +116,6 @@ function mezclarImagenes() {
     temp = array_imagenes[i];
     array_imagenes[i] = array_imagenes[j];
     array_imagenes[j] = temp;
-  //  $carta[i].src = 'img/dc.png';
   }
   return array_imagenes;    
 }
@@ -140,4 +141,13 @@ function pararCronometro(){
 
 function actualizarMovimientos(intentos){
   $movimientos.innerText=intentos;
+}
+
+function mostrarMsjGanador(msg){
+  console.log("el mensaje es " + msg);
+  if (msg="oculto"){
+    $msgGanador.className="oculto";
+  }else {
+    $msgGanador.className= "";
+  }
 }

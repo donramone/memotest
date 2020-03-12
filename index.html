@@ -20,7 +20,7 @@
 
     <div class="container contenedor">
         <div class="row h-100 ">
-            <div class="col-9 " id="tablero">
+            <div class="col-xs-12 col-md-9" id="tablero">
                 
                 <div class="row h-25">
                     <div class=" col-3 carta h-100">
@@ -85,16 +85,20 @@
                 </div>
             </div>
 
-            <div class="col-3 " id="controles">
+            <div class="col-xs-12 col-md-3" id="controles">
                 
-                <button id="btn-empezar">Empezar</button>
+                <button type="button" class="btn btn-secondary btn-lg btn-block" id="btn-jugar">Jugar</button>
                 <br />
-                <span class="estadisticas" id="movimientos">0</span> Movimientos.
-                <div class="estadisticas" id="cronometro">
-
+                <span class="estadisticas">Movimientos:</span> 
+                <span class="estadisticas" id="movimientos">0</span> 
+                <br />
+                <span class="estadisticas">Tiempo:</span> 
+                <span class="estadisticas" id="cronometro">00:00</span>
+                <br />
+                <div id="mensaje-ganador" class="oculto">
+                    <span class="estadisticas" id="texto-ganador">Ganador!</span>
                 </div>
-                <br />
-                <span class="estadisticas" id="mensajeGanador">GANASTE!</span>
+                
             </div>
 
         </div>
