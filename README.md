@@ -7,3 +7,5 @@ To-Do:
 * Mejorar el tamaño de la carta es demasiado ancho con respecto a la imagen.
 * Permitir mostrar solo dos imagenes mientras el jugador juega, si clickeas muy rapido podes ver 3 imagenes.
 * Mejorar la vista de estadisticas del juego mientras se ejecuta en Mobile. 
+# Screenshot
+[![memopc.jpg](https://i.postimg.cc/7ZFsCSms/memopc.jpg)](https://postimg.cc/cvcM2tqw)
