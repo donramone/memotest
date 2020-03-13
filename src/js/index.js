@@ -52,6 +52,8 @@ $tableroCartas.onclick = function (e) {
 
 function manejarCartaSeleccionada($cartaSeleccionada) {
 
+if(document.getElementById("btn-jugar").innerText === "Jugar") return false;
+
   if ($cartaSeleccionada.getAttribute('src') === 'img/dc.png') {
     if (primeraSeleccion === null) {
       primeraCarta = $cartaSeleccionada;
