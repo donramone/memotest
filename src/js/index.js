@@ -4,7 +4,7 @@ let min = 0, sec = 0, cronometro = 0;
 let primeraCarta = null, segundaCarta = null;
 let primeraSeleccion = null, segundaSeleccion = null;
 
-let array_imagenes = ["img/1.jpg", "img/1.jpg", "img/2.jpg", "img/2.jpg", "img/3.jpg", "img/3.jpg", "img/4.jpg", "img/4.jpg",
+let arrayImagenes = ["img/1.jpg", "img/1.jpg", "img/2.jpg", "img/2.jpg", "img/3.jpg", "img/3.jpg", "img/4.jpg", "img/4.jpg",
   "img/5.jpg", "img/5.jpg", "img/6.jpg", "img/6.jpg", "img/7.jpg", "img/7.jpg", "img/8.jpg", "img/8.jpg"];
 
 const $carta = document.querySelectorAll(".carta img")
@@ -52,17 +52,17 @@ $tableroCartas.onclick = function (e) {
 
 function manejarCartaSeleccionada($cartaSeleccionada) {
 
-if(document.getElementById("btn-jugar").innerText === "Jugar") return false;
+  if (document.getElementById("btn-jugar").innerText === "Jugar") { return false };
 
   if ($cartaSeleccionada.getAttribute('src') === 'img/dc.png') {
     if (primeraSeleccion === null) {
       primeraCarta = $cartaSeleccionada;
-      primeraSeleccion = array_imagenes[$cartaSeleccionada.getAttribute('id')];
+      primeraSeleccion = arrayImagenes[$cartaSeleccionada.getAttribute('id')];
       mostrarCarta(primeraCarta, primeraSeleccion);
 
     } else if (segundaSeleccion === null) {
       segundaCarta = $cartaSeleccionada;
-      segundaSeleccion = array_imagenes[$cartaSeleccionada.getAttribute('id')];
+      segundaSeleccion = arrayImagenes[$cartaSeleccionada.getAttribute('id')];
       mostrarCarta(segundaCarta, segundaSeleccion);
       totalIntentos++;
       actualizarMovimientos(totalIntentos);
@@ -104,7 +104,7 @@ function mostrarCarta(carta, imagen) {
 }
 
 function ocultarTodasLasCartas() {
-  for (let i = 0; i < array_imagenes.length; i++) {
+  for (let i = 0; i < arrayImagenes.length; i++) {
     $carta[i].src = 'img/dc.png';
   }
 }
@@ -112,14 +112,14 @@ function ocultarTodasLasCartas() {
 function mezclarImagenes() {
   let i, j, temp;
 
-  for (i = array_imagenes.length - 1; i > 0; i--) {
+  for (i = arrayImagenes.length - 1; i > 0; i--) {
 
     j = Math.floor(Math.random() * (i + 1));
-    temp = array_imagenes[i];
-    array_imagenes[i] = array_imagenes[j];
-    array_imagenes[j] = temp;
+    temp = arrayImagenes[i];
+    arrayImagenes[i] = arrayImagenes[j];
+    arrayImagenes[j] = temp;
   }
-  return array_imagenes;
+  return arrayImagenes;
 }
 
 function iniciarCronometro() {
